@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: e-learninghm
+      username: e-learninghm
+      password: password
+      authentication-database: admin
