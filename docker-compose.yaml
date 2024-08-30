@@ -1,7 +1,7 @@
 services:
-  db-course:
+  mongo-course:
     image: "mongo:7.0.12-rc1-jammy"
-    container_name: "db-course"
+    container_name: "mongo-course"
     ports:
       - "27024:27017"
     environment:
@@ -28,7 +28,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
-      db-course:
+      mongo-course:
         condition: service_healthy
     deploy:
       resources:

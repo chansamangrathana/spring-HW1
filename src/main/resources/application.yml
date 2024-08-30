@@ -42,4 +42,4 @@ spring:
       on-profile: docker
   data:
     mongodb:
-      uri: mongodb://chanchhaya:chanchhaya%2510@db-course:27017/
+      uri: mongodb://chanchhaya:chanchhaya%2510@mongo-course:27017/
