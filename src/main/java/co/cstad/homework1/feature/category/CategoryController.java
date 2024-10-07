@@ -7,6 +7,7 @@ import co.cstad.homework1.feature.category.dto.CategoryUpdateRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +18,10 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService categoryService;
 
+
     //Create a new category
-    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('SCOPE_openid')")
+//    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createCategory(@RequestBody CategoryCreateRequest categoryCreateRequest) {
         categoryService.createCategory(categoryCreateRequest);
@@ -36,6 +39,7 @@ public class CategoryController {
 
         return categoryService.findCategoryById(id);
     }
+
 
     //Update category by id
     @PutMapping("/{id}")
