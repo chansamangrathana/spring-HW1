@@ -11,22 +11,22 @@ public interface CategoryService {
     //Create category
     void createCategory(CategoryCreateRequest categoryCreateRequest);
 
-    //Find all category
+    //Find all
     List<CategoryResponse> findAllCategory();
 
-    //Find category by id
+    //Find
     CategoryResponse findCategoryById(String id);
 
-    //Update category by id
+    //Update
     CategoryResponse updateCategory(String id, CategoryUpdateRequest categoryUpdateRequest);
 
-    //Delete category by id
+    //Delete
     void deleteCategory(String id);
 
-    //Enable category by id
+    //Enable
     void enableCategory(String id);
 
-    //Disable category by id
+    //Disable
     void disableCategory(String id);
 
 }

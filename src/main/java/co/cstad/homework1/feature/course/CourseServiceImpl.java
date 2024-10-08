@@ -90,13 +90,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
 
-    //Get private courses
-    /*@Override
-    public Optional<Course> getPrivateCourse(Boolean isDrafted) {
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-        List<Course> courses = courseRepository.findAll(sortById);
-        return courseRepository.findByIsDrafted(isDrafted);
-    }*/
+
     @Override
     public List<Course> getPrivateCourse() {
         return courseRepository.findByIsDraftedIsTrue();
@@ -131,7 +125,7 @@ public class CourseServiceImpl implements CourseService {
         return courseMapper.toCourseResponseDetail(course);
     }
 
-    //Find course by id
+    //Find course
     @Override
     public CourseResponse findCourseById(String id) {
         Course course = courseRepository.findById(id)
@@ -156,7 +150,7 @@ public class CourseServiceImpl implements CourseService {
         return courseMapper.toCourseResponse(course);
     }
 
-    //Update course by id
+    //Update course
     @Override
     public CourseResponse updateCourse(String id, CourseUpdateRequest courseUpdateRequest) {
         Course course = courseRepository.findById(id)
@@ -287,10 +281,8 @@ public class CourseServiceImpl implements CourseService {
         // Create and set up Video
         Video video = courseMapper.fromVideoCreateRequest(videoCreateRequest);
         video.setLectureNo(UUID.randomUUID().toString().substring(0, 8));
-        // Associate Video with Section
         section.getVideos().add(video);
-        sectionRepository.save(section); // Save the updated Section with the new Video
-        // Optionally, if you need to return a modified VideoCreateRequest
+        sectionRepository.save(section);
         return courseMapper.toVideoCreateRequest(videoCreateRequest);
     }
 
@@ -317,7 +309,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Page<?> getFilter(String title, FilterResponse filterResponse, int page, int size) {
-        // Build Criteria for filtering by title (case-insensitive search)
         Criteria criteria = Criteria.where("title").regex(title, "i");
 
         // Create a Query object using the Criteria
@@ -327,7 +318,6 @@ public class CourseServiceImpl implements CourseService {
         PageRequest pageRequest = PageRequest.of(page, size);
         query.with(pageRequest);
 
-        // Execute the query using MongoTemplate
         List<Course> courses = mongoTemplate.find(query, Course.class);
 
         if (courses.isEmpty()) {

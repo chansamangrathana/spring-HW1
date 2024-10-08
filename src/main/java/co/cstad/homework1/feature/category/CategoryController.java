@@ -21,19 +21,19 @@ public class CategoryController {
 
     //Create a new category
     @PreAuthorize("hasAuthority('SCOPE_openid')")
-//    @ResponseStatus(HttpStatus.CREATED)
+    // @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createCategory(@RequestBody CategoryCreateRequest categoryCreateRequest) {
         categoryService.createCategory(categoryCreateRequest);
     }
 
-    //Find all categories
+    //Find all
     @GetMapping
     List<CategoryResponse> findAllCategory() {
         return categoryService.findAllCategory();
     }
 
-    //Find category by id
+    //Find category
     @GetMapping("/{id}")
     CategoryResponse findCategoryById(@Valid @PathVariable String id) {
 
@@ -41,26 +41,26 @@ public class CategoryController {
     }
 
 
-    //Update category by id
+    //Update category
     @PutMapping("/{id}")
     CategoryResponse updateCategory(@Valid @PathVariable String id, @RequestBody CategoryUpdateRequest categoryUpdateRequest) {
         return categoryService.updateCategory(id, categoryUpdateRequest);
     }
 
-    //Delete category by id
+    //Delete
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     void deleteCategory(@Valid @PathVariable String id) {
         categoryService.deleteCategory(id);
     }
 
-    //Enable category by id
+    //Enable
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}/enable")
     void enableCategory(@Valid @PathVariable("id") String id) {
         categoryService.enableCategory(id);
     }
-    //Disable category by id
+    //Disable
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}/disable")
     void disableCategory(@Valid @PathVariable("id") String id) {

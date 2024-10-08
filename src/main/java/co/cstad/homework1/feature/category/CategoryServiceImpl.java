@@ -28,14 +28,14 @@ public class CategoryServiceImpl implements CategoryService{
         //validate category
         if (categoryRepository.existsByName(categoryCreateRequest.name())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
-                    "This Category is already exist!!!");
+                    "This Category is already ");
         }
         Category category = categoryMapper.fromCategoryCreateRequest(categoryCreateRequest);
         category.setUuid(UUID.randomUUID().toString());
         categoryRepository.save(category);
     }
 
-    //Find all categories
+    //Find all
     @Override
     public List<CategoryResponse> findAllCategory() {
         Sort sortById = Sort.by(Sort.Direction.DESC, "id");
@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryMapper.toCategoryResponseList(categories);
     }
 
-    //Find category by id
+    //Find category
     @Override
     public CategoryResponse findCategoryById(String id) {
         Category category = categoryRepository.findById(id)
@@ -52,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryMapper.toCategoryResponse(category);
     }
 
-    //Update category by id
+    //Update category
     @Override
     public CategoryResponse updateCategory(String id, CategoryUpdateRequest categoryUpdateRequest) {
         Category category = categoryRepository.findById(id)
@@ -65,7 +65,7 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryMapper.toCategoryResponse(category);
     }
 
-    //Delete category by id
+    //Delete category
     @Override
     public void deleteCategory(String id) {
         Category category = categoryRepository.findById(id)
@@ -74,7 +74,7 @@ public class CategoryServiceImpl implements CategoryService{
         categoryRepository.delete(category);
     }
 
-    //Enable category by id
+    //Enable category
     @Override
     public void enableCategory(String id) {
         Category category = categoryRepository.findById(id)
@@ -84,7 +84,7 @@ public class CategoryServiceImpl implements CategoryService{
         categoryRepository.save(category);
     }
 
-    //Disable category by id
+    //Disable
     @Override
     public void disableCategory(String id) {
         Category category = categoryRepository.findById(id)
